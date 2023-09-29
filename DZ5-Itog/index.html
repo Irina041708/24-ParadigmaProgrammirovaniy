@@ -1,0 +1,94 @@
+<!-- Реализовать секундомер -->
+<!-- . Секундомер должен поддерживать
+следующий функционал:
+○ Запуск
+○ Пауза
+○ Выход из паузы
+○ Остановка -->
+
+<!-- https://code911.top/howto/javascript-build-a-countdown-timer-in-vue-3?ysclid=ln3fa6pm2r960725784 -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    .box {
+      width: 500px;
+      background-color: aqua;
+      border-radius: 20px;
+    }
+    .center {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+    .number {
+      width: 60px;
+      height: 60px;
+      background-color: rgb(228, 240, 121);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .button {
+      display: flex;
+      gap: 20px;
+    }
+  </style>
+
+  <body>
+    <div id="app" class="demo">
+      <div class="box">
+        <div class="center">
+          <h1>Счетчик</h1>
+          <p class="number">{{count}}</p>
+          <div class="button">
+            <button @click="start">Запуск/Продолжить</button>
+            <button @click="pause">Пауза</button>
+            <button @click="stop">Обновить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+      const DZ1_1 = {
+        data() {
+          return {
+            count: 0,
+            time: null, // переменная для хранения нашего time
+          };
+        },
+        methods: {
+          start() {
+            // проверяем, установлен ли уже time(чтобы не было сбоев при поторном клике)!!!!!!!!!!!!!!!!
+            if (!this.time) {
+              this.time = setInterval(() => {
+                this.count = this.count + 1;
+              }, 100);
+            }
+          },
+          pause() {
+            clearInterval(this.time);
+            // освобождаем наш time из переменной
+            this.time = null;
+          },
+          stop() {
+            clearInterval(this.time);
+            this.count = 0;
+            this.time = null;
+          },
+        },
+      };
+      Vue.createApp(DZ1_1).mount("#app");
+    </script>
+  </body>
+</html>
